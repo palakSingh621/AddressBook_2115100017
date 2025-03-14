@@ -1,6 +1,7 @@
 ﻿using ModelLayer.Model;
 using RepositoryLayer.Interface;
 using BusinessLayer.Interface;
+using RepositoryLayer.Entity;
 
 namespace BusinessLayer.Service
 {
@@ -13,38 +14,56 @@ namespace BusinessLayer.Service
             _userRepository = userRepository;
         }
 
-        public ActionResult<string> RegisterUser(RegisterRequest model)
+        public ResponseModel<UserEntity> RegisterUser(RegisterRequest model)
         {
             if (_userRepository.UserExists(model.Email))
-                return new ActionResult<string> { Success = false, Message = "Email already exists" };
+                return new ResponseModel<UserEntity> 
+                { 
+                    Success = false,
+                    Message = "Email already exists" 
+                };
 
             string hashedPassword = model.Password;
-            _userRepository.CreateUser(model.UserName, model.Email, hashedPassword);
+            var user=_userRepository.CreateUser(model.UserName, model.Email, hashedPassword);
 
-            return new ActionResult<string> { Success = true, Message = "User registered successfully" };
+            var response= new ResponseModel<UserEntity>
+            { 
+                Success = true, 
+                Message = "User registered successfully", 
+                Data = user
+            };
+            return response;
         }
 
-        public ActionResult<string> LoginUser(LoginRequest model)
+        public ResponseModel<string> LoginUser(LoginRequest model)
         {
             var user = _userRepository.GetUserByEmail(model.Email);
             if (user == null || model.Password != user.PasswordHash)
-                return new ActionResult<string> { Success = false, Message = "Invalid credentials" };
+                return new ResponseModel<string> 
+                { 
+                    Success = false,
+                    Message = "Invalid credentials"
+                };
 
-            return new ActionResult<string> { Success = true, Message = "Login successful", Data = "JWT_TOKEN_HERE" };
+            return new ResponseModel<string> 
+            { 
+                Success = true,
+                Message = "Login successful"
+            };
         }
 
-        public ActionResult<string> ForgotPassword(ForgetPasswordRequest model)
+        public ResponseModel<string> ForgotPassword(ForgetPasswordRequest model)
         {
             // Logic to send a password reset link via email
-            return new ActionResult<string> { Success = true, Message = "Password reset link sent" };
+            return new ResponseModel<string> { Success = true, Message = "Password reset link sent" };
         }
 
-        public ActionResult<string> ResetPassword(ResetPasswordRequest model)
+        public ResponseModel<string> ResetPassword(ResetPasswordRequest model)
         {
             string hashedPassword =model.NewPassword;
             _userRepository.UpdateUserPassword(model.Email, hashedPassword);
 
-            return new ActionResult<string> { Success = true, Message = "Password reset successful" };
+            return new ResponseModel<string> { Success = true, Message = "Password reset successful" };
         }
     }
 }

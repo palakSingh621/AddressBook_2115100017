@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AddressBookContext>(options =>
 
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<AddressBookService>();
+builder.Services.AddScoped<AddressBookRepository>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserRL, UserRL>();
 

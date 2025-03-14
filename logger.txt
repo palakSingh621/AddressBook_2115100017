@@ -1,0 +1,339 @@
+2025-03-15 01:28:33.8501 INFO Application Starting... 
+2025-03-15 01:29:52.0580 INFO Application Starting... 
+2025-03-15 01:31:39.5345 INFO Application Starting... 
+2025-03-15 01:32:41.9414 INFO Application Starting... 
+2025-03-15 01:32:43.1314 INFO Now listening on: https://localhost:7101 
+2025-03-15 01:32:43.1446 INFO Now listening on: http://localhost:5194 
+2025-03-15 01:32:43.2325 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 01:32:43.2325 INFO Hosting environment: Development 
+2025-03-15 01:32:43.2325 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 01:32:47.0740 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 01:32:47.5229 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 452.0607ms 
+2025-03-15 01:32:47.5521 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 01:32:47.5521 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 01:32:47.5521 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 3.0968ms 
+2025-03-15 01:32:47.5521 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 10.9377ms 
+2025-03-15 01:32:47.9012 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 01:32:48.0419 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 140.7534ms 
+2025-03-15 01:32:49.0771 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 01:32:49.0901 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 13.1896ms 
+2025-03-15 01:33:40.9681 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/register application/json 86 
+2025-03-15 01:33:40.9991 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 01:33:41.0514 INFO Route matched with {action = "Register", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(ModelLayer.Model.RegisterRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 01:33:43.3023 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:33:45.3851 INFO Executed DbCommand (272ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Email] = @__email_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END 
+2025-03-15 01:33:45.6434 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 01:33:45.6573 INFO Executed action AddressBook_App.Controllers.UserController.Register (AddressBook_App) in 4597.3273ms 
+2025-03-15 01:33:45.6573 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 01:33:45.6735 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/register application/json 86 - 200 - application/json;+charset=utf-8 4705.3309ms 
+2025-03-15 01:34:09.2852 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/login application/json 63 
+2025-03-15 01:34:09.2852 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 01:34:09.2852 INFO Route matched with {action = "Login", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(ModelLayer.Model.LoginRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 01:34:09.3077 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:34:09.4351 INFO Executed DbCommand (40ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Email], [u].[PasswordHash], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0 
+2025-03-15 01:34:09.4351 INFO Executing UnauthorizedObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 01:34:09.4396 INFO Executed action AddressBook_App.Controllers.UserController.Login (AddressBook_App) in 143.7752ms 
+2025-03-15 01:34:09.4396 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 01:34:09.4396 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/login application/json 63 - 401 - application/json;+charset=utf-8 156.2003ms 
+2025-03-15 01:45:07.5832 INFO Application Starting... 
+2025-03-15 01:45:08.8746 INFO Now listening on: https://localhost:7101 
+2025-03-15 01:45:08.8862 INFO Now listening on: http://localhost:5194 
+2025-03-15 01:45:08.9758 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 01:45:08.9758 INFO Hosting environment: Development 
+2025-03-15 01:45:08.9758 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 01:45:10.9523 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 01:45:11.6035 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 653.4861ms 
+2025-03-15 01:45:11.6524 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 01:45:11.6524 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 01:45:11.6595 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 7.0345ms 
+2025-03-15 01:45:11.6740 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 21.5878ms 
+2025-03-15 01:45:12.2113 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 01:45:13.1299 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 918.7939ms 
+2025-03-15 01:45:13.4338 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 01:45:13.4490 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 15.1356ms 
+2025-03-15 01:45:47.8060 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/register application/json 78 
+2025-03-15 01:45:47.8368 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 01:45:47.8888 INFO Route matched with {action = "Register", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(ModelLayer.Model.RegisterRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 01:45:50.0107 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:45:51.7287 INFO Executed DbCommand (192ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Email] = @__email_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END 
+2025-03-15 01:45:52.2032 INFO Executed DbCommand (70ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([Email], [PasswordHash], [UserName])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Users]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity(); 
+2025-03-15 01:45:52.2879 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[RepositoryLayer.Entity.UserEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2025-03-15 01:45:52.3041 INFO Executed action AddressBook_App.Controllers.UserController.Register (AddressBook_App) in 4406.8669ms 
+2025-03-15 01:45:52.3041 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 01:45:52.3216 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/register application/json 78 - 200 - application/json;+charset=utf-8 4515.6517ms 
+2025-03-15 01:46:15.8385 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/login application/json 52 
+2025-03-15 01:46:15.8592 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 01:46:15.9141 INFO Route matched with {action = "Login", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(ModelLayer.Model.LoginRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 01:46:15.9452 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:46:16.1201 INFO Executed DbCommand (76ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Email], [u].[PasswordHash], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0 
+2025-03-15 01:46:16.1337 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 01:46:16.1337 INFO Executed action AddressBook_App.Controllers.UserController.Login (AddressBook_App) in 221.448ms 
+2025-03-15 01:46:16.1337 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 01:46:16.1337 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/login application/json 52 - 200 - application/json;+charset=utf-8 298.5538ms 
+2025-03-15 01:47:49.4266 INFO Request starting HTTP/2 POST https://localhost:7101/api/addressbook?userId=1&contactName=testContact1&contactNumber=123456778 - 0 
+2025-03-15 01:47:49.4266 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:47:49.4729 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:49:10.8395 INFO Application Starting... 
+2025-03-15 01:49:11.7157 INFO Now listening on: https://localhost:7101 
+2025-03-15 01:49:11.7280 INFO Now listening on: http://localhost:5194 
+2025-03-15 01:49:11.8121 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 01:49:11.8121 INFO Hosting environment: Development 
+2025-03-15 01:49:11.8133 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 01:49:13.8340 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 01:49:14.3932 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 568.2102ms 
+2025-03-15 01:49:14.4298 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 01:49:14.4298 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 01:49:14.4298 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 3.4079ms 
+2025-03-15 01:49:14.4298 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 9.2937ms 
+2025-03-15 01:49:14.8175 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 01:49:14.9306 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 113.2940ms 
+2025-03-15 01:49:16.1395 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 01:49:16.1517 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 12.3416ms 
+2025-03-15 01:49:39.1299 INFO Request starting HTTP/2 POST https://localhost:7101/api/addressbook?userId=1&contactName=contact1&contactNumber=12345678 - 0 
+2025-03-15 01:49:39.1631 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:49:39.1988 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:52:01.0074 INFO Application Starting... 
+2025-03-15 01:52:02.8167 INFO Now listening on: https://localhost:7101 
+2025-03-15 01:52:02.8167 INFO Now listening on: http://localhost:5194 
+2025-03-15 01:52:02.9097 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 01:52:02.9097 INFO Hosting environment: Development 
+2025-03-15 01:52:02.9097 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 01:52:04.3519 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 01:52:04.9146 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 566.1820ms 
+2025-03-15 01:52:04.9243 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 01:52:04.9243 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 01:52:04.9243 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 5.5154ms 
+2025-03-15 01:52:04.9594 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 35.0689ms 
+2025-03-15 01:52:05.5318 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 01:52:05.6405 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 108.6529ms 
+2025-03-15 01:52:06.4301 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 01:52:06.4301 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 9.6120ms 
+2025-03-15 01:52:57.9501 INFO Request starting HTTP/1.1 GET https://localhost:7101/api/addressbook - - 
+2025-03-15 01:52:57.9630 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 01:52:58.0118 INFO Route matched with {action = "GetAllContacts", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAllContacts(Int32) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:52:58.5011 INFO Fetching All Contacts... 
+2025-03-15 01:53:00.4049 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:53:02.6447 INFO Executed DbCommand (187ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE [a].[UserId] = @__userId_0 
+2025-03-15 01:53:02.6901 WARN No Contacts found. 
+2025-03-15 01:53:02.6901 INFO Executing NotFoundObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.Collections.Generic.List`1[[RepositoryLayer.Entity.AddressBookEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 01:53:02.7246 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App) in 4704.6029ms 
+2025-03-15 01:53:02.7246 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 01:53:02.7409 INFO Request finished HTTP/1.1 GET https://localhost:7101/api/addressbook - - - 404 - application/json;+charset=utf-8 4790.7403ms 
+2025-03-15 01:54:26.1320 INFO Request starting HTTP/1.1 GET https://localhost:7101/api/addressbook application/json 20 
+2025-03-15 01:54:26.1320 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 01:54:26.1320 INFO Route matched with {action = "GetAllContacts", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAllContacts(Int32) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:54:26.1320 INFO Fetching All Contacts... 
+2025-03-15 01:54:26.1422 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 01:54:26.1724 INFO Executed DbCommand (19ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE [a].[UserId] = @__userId_0 
+2025-03-15 01:54:26.1724 WARN No Contacts found. 
+2025-03-15 01:54:26.1724 INFO Executing NotFoundObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.Collections.Generic.List`1[[RepositoryLayer.Entity.AddressBookEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 01:54:26.1724 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App) in 39.9865ms 
+2025-03-15 01:54:26.1724 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 01:54:26.1724 INFO Request finished HTTP/1.1 GET https://localhost:7101/api/addressbook application/json 20 - 404 - application/json;+charset=utf-8 44.6093ms 
+2025-03-15 01:55:37.0490 INFO Request starting HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 84 
+2025-03-15 01:55:37.0498 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:55:37.0498 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:55:37.0728 INFO Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'. 
+2025-03-15 01:55:37.0728 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App) in 22.4171ms 
+2025-03-15 01:55:37.0728 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:55:37.0728 INFO Request finished HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 84 - 400 - application/problem+json;+charset=utf-8 27.7844ms 
+2025-03-15 01:57:44.0688 INFO Application Starting... 
+2025-03-15 01:58:33.9842 INFO Application Starting... 
+2025-03-15 01:58:35.0424 INFO Now listening on: https://localhost:7101 
+2025-03-15 01:58:35.0566 INFO Now listening on: http://localhost:5194 
+2025-03-15 01:58:35.1326 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 01:58:35.1326 INFO Hosting environment: Development 
+2025-03-15 01:58:35.1326 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 01:58:37.2317 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 01:58:37.6057 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 376.7683ms 
+2025-03-15 01:58:37.9148 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 01:58:37.9148 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 01:58:37.9148 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 3.3521ms 
+2025-03-15 01:58:37.9245 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 9.6521ms 
+2025-03-15 01:58:37.9574 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 01:58:38.0229 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 65.6293ms 
+2025-03-15 01:58:38.8114 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 01:58:38.8195 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 8.1136ms 
+2025-03-15 01:58:46.3065 INFO Request starting HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 85 
+2025-03-15 01:58:46.3202 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:58:46.3643 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 01:58:46.8981 INFO Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'. 
+2025-03-15 01:58:46.9168 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App) in 542.3218ms 
+2025-03-15 01:58:46.9168 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 01:58:46.9252 INFO Request finished HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 85 - 400 - application/problem+json;+charset=utf-8 618.6453ms 
+2025-03-15 02:11:16.9257 INFO Application Starting... 
+2025-03-15 02:11:18.1321 INFO Now listening on: https://localhost:7101 
+2025-03-15 02:11:18.1321 INFO Now listening on: http://localhost:5194 
+2025-03-15 02:11:18.2181 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 02:11:18.2181 INFO Hosting environment: Development 
+2025-03-15 02:11:18.2181 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 02:11:20.2242 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 02:11:21.7290 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 1509.7860ms 
+2025-03-15 02:11:21.7579 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 02:11:21.7579 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 02:11:21.7579 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 8.1000ms 
+2025-03-15 02:11:21.7736 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 15.9412ms 
+2025-03-15 02:11:22.2667 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 02:11:22.4217 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 154.9306ms 
+2025-03-15 02:11:23.4713 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 02:11:23.4713 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 12.5173ms 
+2025-03-15 02:12:06.5887 INFO Request starting HTTP/2 POST https://localhost:7101/api/addressbook?contactName=tester1&contactNumber=123456 application/json 1 
+2025-03-15 02:12:06.6195 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:12:06.6800 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:14:47.5710 INFO Application Starting... 
+2025-03-15 02:14:48.7719 INFO Now listening on: https://localhost:7101 
+2025-03-15 02:14:48.7904 INFO Now listening on: http://localhost:5194 
+2025-03-15 02:14:48.9021 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 02:14:48.9021 INFO Hosting environment: Development 
+2025-03-15 02:14:48.9021 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 02:14:52.1298 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 02:14:52.5547 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 428.7624ms 
+2025-03-15 02:14:52.6366 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 02:14:52.6366 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 02:14:52.6366 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 4.0642ms 
+2025-03-15 02:14:52.6477 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 11.0596ms 
+2025-03-15 02:14:53.1479 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 02:14:53.2509 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 103.1589ms 
+2025-03-15 02:14:54.3505 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 02:14:54.3653 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 14.8088ms 
+2025-03-15 02:15:20.5239 INFO Request starting HTTP/2 POST https://localhost:7101/api/addressbook?contactName=tester&contactNumber=123456 application/json 1 
+2025-03-15 02:15:20.5404 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:15:20.5932 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:17:08.5006 INFO Application Starting... 
+2025-03-15 02:17:09.5100 INFO Now listening on: https://localhost:7101 
+2025-03-15 02:17:09.5212 INFO Now listening on: http://localhost:5194 
+2025-03-15 02:17:09.6085 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 02:17:09.6085 INFO Hosting environment: Development 
+2025-03-15 02:17:09.6085 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 02:17:12.0830 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 02:17:12.4178 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 339.1234ms 
+2025-03-15 02:17:12.4466 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 02:17:12.4466 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 02:17:12.4466 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 1.8445ms 
+2025-03-15 02:17:12.4466 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 6.5447ms 
+2025-03-15 02:17:12.7122 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 02:17:12.7823 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 70.2106ms 
+2025-03-15 02:17:13.5963 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 02:17:13.6068 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 10.7510ms 
+2025-03-15 02:17:29.7838 INFO Request starting HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 85 
+2025-03-15 02:17:29.7838 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:17:29.8555 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:17:30.4187 INFO Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'. 
+2025-03-15 02:17:30.4322 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App) in 569.8762ms 
+2025-03-15 02:17:30.4322 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:17:30.4387 INFO Request finished HTTP/1.1 POST https://localhost:7101/api/addressbook application/json 85 - 400 - application/problem+json;+charset=utf-8 654.8817ms 
+2025-03-15 02:18:20.1450 INFO Request starting HTTP/1.1 POST https://localhost:7101/api/addressbook?contactName=tester1&contactNumber=123456 application/json 1 
+2025-03-15 02:18:20.1450 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:18:20.1450 INFO Route matched with {action = "AddContact", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult AddContact(Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:18:44.1001 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 02:18:45.8715 INFO Executed DbCommand (182ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Email], [u].[PasswordHash], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[Id] = @__userId_0 
+2025-03-15 02:18:53.3101 INFO Executed DbCommand (59ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AddressBookContacts] ([ContactName], [ContactNumber], [UserId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [AddressBookContacts]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity(); 
+2025-03-15 02:19:00.4091 INFO Saving the Contact... 
+2025-03-15 02:19:03.3648 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 02:19:06.2462 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App) in 46090.0151ms 
+2025-03-15 02:19:06.2462 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.AddContact (AddressBook_App)' 
+2025-03-15 02:19:06.2574 INFO Request finished HTTP/1.1 POST https://localhost:7101/api/addressbook?contactName=tester1&contactNumber=123456 application/json 1 - 200 - application/json;+charset=utf-8 46112.3976ms 
+2025-03-15 02:20:16.5176 INFO Request starting HTTP/2 GET https://localhost:7101/api/addressbook?userId=1 - - 
+2025-03-15 02:20:16.5176 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 02:20:16.5176 INFO Route matched with {action = "GetAllContacts", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAllContacts(Int32) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:20:16.5176 INFO Fetching All Contacts... 
+2025-03-15 02:20:16.6057 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 02:20:16.6713 INFO Executed DbCommand (30ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE [a].[UserId] = @__userId_0 
+2025-03-15 02:20:16.6713 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.Collections.Generic.List`1[[RepositoryLayer.Entity.AddressBookEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 02:20:16.6772 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App) in 155.5577ms 
+2025-03-15 02:20:16.6772 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetAllContacts (AddressBook_App)' 
+2025-03-15 02:20:16.6772 INFO Request finished HTTP/2 GET https://localhost:7101/api/addressbook?userId=1 - - - 200 - application/json;+charset=utf-8 161.3710ms 
+2025-03-15 02:21:16.7218 INFO Request starting HTTP/2 GET https://localhost:7101/api/addressbook/1?userId=1 - - 
+2025-03-15 02:21:16.7218 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetContactById (AddressBook_App)' 
+2025-03-15 02:21:16.7424 INFO Route matched with {action = "GetContactById", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetContactById(Int32, Int32) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:21:16.7424 INFO Fetching Contact for UserID: 1, ContactID: 1 
+2025-03-15 02:21:16.8256 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 02:21:16.8587 INFO Executed DbCommand (20ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__id_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE ([a].[UserId] = @__userId_0) AND ([a].[Id] = @__id_1) 
+2025-03-15 02:21:16.8587 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[RepositoryLayer.Entity.AddressBookEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2025-03-15 02:21:16.8614 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.GetContactById (AddressBook_App) in 118.5724ms 
+2025-03-15 02:21:16.8614 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.GetContactById (AddressBook_App)' 
+2025-03-15 02:21:16.8614 INFO Request finished HTTP/2 GET https://localhost:7101/api/addressbook/1?userId=1 - - - 200 - application/json;+charset=utf-8 140.9485ms 
+2025-03-15 02:21:51.0962 INFO Request starting HTTP/2 PUT https://localhost:7101/api/addressbook/1?userId=1&name=contact1&number=234567 - 0 
+2025-03-15 02:21:51.0962 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.UpdateContactById (AddressBook_App)' 
+2025-03-15 02:21:51.1120 INFO Route matched with {action = "UpdateContactById", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult UpdateContactById(Int32, Int32, System.String, System.String) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:21:51.1120 INFO Attempting to update contact with ID: 1 
+2025-03-15 02:21:51.1120 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 02:21:51.1120 INFO Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32), @__userId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE ([a].[Id] = @__id_0) AND ([a].[UserId] = @__userId_1) 
+2025-03-15 02:21:51.1595 INFO Executed DbCommand (18ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [AddressBookContacts] SET [ContactName] = @p0, [ContactNumber] = @p1
+WHERE [Id] = @p2;
+SELECT @@ROWCOUNT; 
+2025-03-15 02:21:51.1622 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 02:21:51.1622 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.UpdateContactById (AddressBook_App) in 50.5858ms 
+2025-03-15 02:21:51.1622 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.UpdateContactById (AddressBook_App)' 
+2025-03-15 02:21:51.1622 INFO Request finished HTTP/2 PUT https://localhost:7101/api/addressbook/1?userId=1&name=contact1&number=234567 - 0 - 200 - application/json;+charset=utf-8 67.6310ms 
+2025-03-15 02:22:09.5229 INFO Request starting HTTP/2 DELETE https://localhost:7101/api/addressbook/1?userId=1 - - 
+2025-03-15 02:22:09.5229 INFO Executing endpoint 'AddressBook_App.Controllers.AddressBook_AppController.DeleteContactById (AddressBook_App)' 
+2025-03-15 02:22:09.5229 INFO Route matched with {action = "DeleteContactById", controller = "AddressBook_App"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DeleteContactById(Int32, Int32) on controller AddressBook_App.Controllers.AddressBook_AppController (AddressBook_App). 
+2025-03-15 02:22:09.5327 INFO Attempting to delete contact with ID: 1 
+2025-03-15 02:22:09.5327 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 02:22:09.5543 INFO Executed DbCommand (10ms) [Parameters=[@__id_0='?' (DbType = Int32), @__userId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ContactName], [a].[ContactNumber], [a].[UserId]
+FROM [AddressBookContacts] AS [a]
+WHERE ([a].[Id] = @__id_0) AND ([a].[UserId] = @__userId_1) 
+2025-03-15 02:22:09.5786 INFO Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [AddressBookContacts]
+WHERE [Id] = @p0;
+SELECT @@ROWCOUNT; 
+2025-03-15 02:22:09.5918 INFO Contact with ID 1 deleted successfully. 
+2025-03-15 02:22:09.5918 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 02:22:09.5918 INFO Executed action AddressBook_App.Controllers.AddressBook_AppController.DeleteContactById (AddressBook_App) in 62.8103ms 
+2025-03-15 02:22:09.5918 INFO Executed endpoint 'AddressBook_App.Controllers.AddressBook_AppController.DeleteContactById (AddressBook_App)' 
+2025-03-15 02:22:09.5918 INFO Request finished HTTP/2 DELETE https://localhost:7101/api/addressbook/1?userId=1 - - - 200 - application/json;+charset=utf-8 70.6253ms 

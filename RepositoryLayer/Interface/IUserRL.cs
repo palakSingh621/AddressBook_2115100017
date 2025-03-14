@@ -6,8 +6,8 @@ namespace RepositoryLayer.Interface
     public interface IUserRL
     {
         bool UserExists(string email);
-        void CreateUser(string username, string email, string passwordHash);
+        UserEntity CreateUser(string username, string email, string passwordHash);
         UserEntity GetUserByEmail(string email);
-        void UpdateUserPassword(string email, string newPasswordHash);
+        bool UpdateUserPassword(string email, string newPasswordHash);
     }
 }

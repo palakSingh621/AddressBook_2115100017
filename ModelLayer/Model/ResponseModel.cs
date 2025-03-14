@@ -1,6 +1,6 @@
 ﻿namespace ModelLayer.Model
 {
-    public class ActionResult<T>
+    public class ResponseModel<T>
     {
         public bool Success { get; set; } = false;
         public string Message { get; set; } = " ";
