@@ -1,0 +1,8 @@
+.vs
+obj/
+GreetingApp/obj/
+ModelLayer/obj/
+BusinessLayer/obj/
+RepositoryLayer/obj/
+obj\
+bin/
