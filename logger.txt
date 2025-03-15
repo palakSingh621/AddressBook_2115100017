@@ -450,3 +450,91 @@ WHERE [a].[UserId] = @__userId_0
 2025-03-15 10:59:04.7402 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 70.4969ms 
 2025-03-15 10:59:05.3745 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
 2025-03-15 10:59:05.3812 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 6.7241ms 
+2025-03-15 11:16:55.0320 INFO Application Starting... 
+2025-03-15 11:16:56.1589 INFO Now listening on: https://localhost:7101 
+2025-03-15 11:16:56.1589 INFO Now listening on: http://localhost:5194 
+2025-03-15 11:16:56.2390 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 11:16:56.2390 INFO Hosting environment: Development 
+2025-03-15 11:16:56.2390 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 11:16:58.6584 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 11:16:59.2260 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 571.6450ms 
+2025-03-15 11:16:59.2807 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 11:16:59.2807 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 11:16:59.2807 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 3.4130ms 
+2025-03-15 11:16:59.2909 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 10.2409ms 
+2025-03-15 11:16:59.7045 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 11:16:59.8096 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 105.2489ms 
+2025-03-15 11:17:00.8841 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 11:17:00.9023 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 18.1722ms 
+2025-03-15 11:17:37.8111 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/register application/json 86 
+2025-03-15 11:17:37.8662 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 11:17:37.9235 INFO Route matched with {action = "Register", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(ModelLayer.Model.RegisterRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 11:17:40.2703 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 11:17:42.6136 INFO Executed DbCommand (237ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Email] = @__email_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END 
+2025-03-15 11:17:43.1312 INFO Executed DbCommand (42ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([Email], [PasswordHash], [UserName])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Users]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity(); 
+2025-03-15 11:17:43.2135 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[RepositoryLayer.Entity.UserEntity, RepositoryLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+2025-03-15 11:17:43.2305 INFO Executed action AddressBook_App.Controllers.UserController.Register (AddressBook_App) in 5298.0168ms 
+2025-03-15 11:17:43.2305 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Register (AddressBook_App)' 
+2025-03-15 11:17:43.2626 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/register application/json 86 - 200 - application/json;+charset=utf-8 5451.4603ms 
+2025-03-15 11:20:38.9040 INFO Application Starting... 
+2025-03-15 11:20:39.8978 INFO Now listening on: https://localhost:7101 
+2025-03-15 11:20:39.8978 INFO Now listening on: http://localhost:5194 
+2025-03-15 11:20:39.9690 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 11:20:39.9690 INFO Hosting environment: Development 
+2025-03-15 11:20:39.9690 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 11:20:41.7717 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 11:20:42.2056 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 439.2798ms 
+2025-03-15 11:20:42.2306 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 11:20:42.2306 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 11:20:42.2306 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 2.1143ms 
+2025-03-15 11:20:42.2379 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 7.2025ms 
+2025-03-15 11:20:42.5527 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 11:20:42.6270 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 74.5216ms 
+2025-03-15 11:20:43.4676 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 11:20:43.4797 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 12.0172ms 
+2025-03-15 17:04:05.9153 INFO Application Starting... 
+2025-03-15 17:04:06.7095 INFO User profile is available. Using 'C:\Users\user\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2025-03-15 17:04:06.7373 INFO Creating key {5ac31698-a8fb-4e56-b025-84255168adbf} with creation date 2025-03-15 11:34:06Z, activation date 2025-03-15 11:34:06Z, and expiration date 2025-06-13 11:34:06Z. 
+2025-03-15 17:04:06.7685 INFO Writing data to file 'C:\Users\user\AppData\Local\ASP.NET\DataProtection-Keys\key-5ac31698-a8fb-4e56-b025-84255168adbf.xml'. 
+2025-03-15 17:04:07.3965 INFO Now listening on: https://localhost:7101 
+2025-03-15 17:04:07.3965 INFO Now listening on: http://localhost:5194 
+2025-03-15 17:04:07.4688 INFO Application started. Press Ctrl+C to shut down. 
+2025-03-15 17:04:07.4688 INFO Hosting environment: Development 
+2025-03-15 17:04:07.4688 INFO Content root path: D:\Capg .NET\Projects\AddressBook_2115100017\AddressBook_App\ 
+2025-03-15 17:04:10.4471 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.html - - 
+2025-03-15 17:04:10.9956 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.html - - - 200 - text/html;charset=utf-8 546.8580ms 
+2025-03-15 17:04:11.0101 INFO Request starting HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - 
+2025-03-15 17:04:11.0101 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/index.js - - 
+2025-03-15 17:04:11.0249 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/index.js - - - 200 - application/javascript;charset=utf-8 11.5846ms 
+2025-03-15 17:04:11.0360 INFO Request finished HTTP/2 GET https://localhost:7101/_framework/aspnetcore-browser-refresh.js - - - 200 12362 application/javascript;+charset=utf-8 25.8107ms 
+2025-03-15 17:04:11.4284 INFO Request starting HTTP/2 GET https://localhost:7101/_vs/browserLink - - 
+2025-03-15 17:04:11.5383 INFO Request finished HTTP/2 GET https://localhost:7101/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 109.9062ms 
+2025-03-15 17:04:12.4257 INFO Request starting HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - 
+2025-03-15 17:04:12.4429 INFO Request finished HTTP/2 GET https://localhost:7101/Swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 17.3084ms 
+2025-03-15 17:04:41.9088 INFO Request starting HTTP/2 POST https://localhost:7101/api/user/login application/json 63 
+2025-03-15 17:04:44.0849 INFO Executing endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 17:04:44.1370 INFO Route matched with {action = "Login", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(ModelLayer.Model.LoginRequest) on controller AddressBook_App.Controllers.UserController (AddressBook_App). 
+2025-03-15 17:04:44.6616 INFO Login attemp for user: kushwahaps621@gmail.com 
+2025-03-15 17:04:46.7648 INFO Entity Framework Core 6.0.36 initialized 'AddressBookContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.36' with options: None 
+2025-03-15 17:04:49.2359 INFO Executed DbCommand (274ms) [Parameters=[@__email_0='?' (Size = 100)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Email], [u].[PasswordHash], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0 
+2025-03-15 17:04:49.7256 INFO User kushwahaps621@gmail.com logged in successfully. 
+2025-03-15 17:04:49.7387 INFO Executing OkObjectResult, writing value of type 'ModelLayer.Model.ResponseModel`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+2025-03-15 17:04:49.7387 INFO Executed action AddressBook_App.Controllers.UserController.Login (AddressBook_App) in 5605.3002ms 
+2025-03-15 17:04:49.7545 INFO Executed endpoint 'AddressBook_App.Controllers.UserController.Login (AddressBook_App)' 
+2025-03-15 17:04:49.7738 INFO Request finished HTTP/2 POST https://localhost:7101/api/user/login application/json 63 - 200 - application/json;+charset=utf-8 7864.9723ms 

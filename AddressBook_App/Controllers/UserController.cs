@@ -9,9 +9,10 @@ namespace AddressBook_App.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBL _userService;
-
-        public UserController(IUserBL userService)
+        private readonly ILogger<UserController> _logger;
+        public UserController(ILogger<UserController> logger, IUserBL userService)
         {
+            _logger = logger;
             _userService = userService;
         }
         /// <summary>
@@ -22,11 +23,22 @@ namespace AddressBook_App.Controllers
         [Route("register")]
         public IActionResult Register([FromBody] RegisterRequest model)
         {
-            var response = _userService.RegisterUser(model);
-            if (!response.Success)
-                return BadRequest(response);
-
-            return Ok(response);
+            try
+            {
+                var response = _userService.RegisterUser(model);
+                if (!response.Success)
+                {
+                    _logger.LogWarning("User registration failed: Email already exists.");
+                    return BadRequest(response);
+                }
+                _logger.LogInformation("User Register successfully..");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while registering user.");
+                return StatusCode(500, new { Success = false, Message = "Internal Server Error", Error = ex.Message });
+            }
         }
         /// <summary>
         /// Login User 
@@ -36,11 +48,23 @@ namespace AddressBook_App.Controllers
         [Route("login")]
         public IActionResult Login([FromBody] LoginRequest model)
         {
-            var response = _userService.LoginUser(model);
-            if (!response.Success)
-                return Unauthorized(response);
-
-            return Ok(response);
+            try
+            {
+                _logger.LogInformation("Login attemp for user: {0}", model.Email);
+                var response = _userService.LoginUser(model);
+                if (!response.Success)
+                {
+                    _logger.LogWarning("Invalid login attempt for user: {0}", model.Email);
+                    return Unauthorized(response);
+                }
+                _logger.LogInformation("User {0} logged in successfully.", model.Email);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Login failed.");
+                return BadRequest(new { Success = false, Message = "Login failed.", Error = ex.Message });
+            }
         }
         /// <summary>
         /// Forget Password 

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
@@ -17,15 +18,26 @@ namespace AddressBook_App.Controllers
             _logger = logger;
             _addressBookService = addressBookService;
         }
-        /// <summary>
-        /// Gets all address book entries.
-        /// </summary>
-        /// <returns>A list of all entries in the address book.</returns>
-        [HttpGet]
-        public IActionResult GetAllContacts(int userId)
+        private int GetUserIdFromToken()
+        {
+            var userId = User.FindFirstValue("userId");
+            if (userId == null)
+            {
+                _logger.LogWarning("Invalid or missing user ID in token.");
+                throw new UnauthorizedAccessException(userId);
+            }
+            return int.Parse(userId);
+        }
+            /// <summary>
+            /// Gets all address book entries.
+            /// </summary>
+            /// <returns>A list of all entries in the address book.</returns>
+            [HttpGet]
+        public IActionResult GetAllContacts()
         {
             try
             {
+                int userId = GetUserIdFromToken();
                 _logger.LogInformation("Fetching All Contacts...");
                 var contacts = _addressBookService.GetAllContact(userId);
                 if (contacts == null || contacts.Count == 0)
@@ -60,10 +72,11 @@ namespace AddressBook_App.Controllers
         /// </summary>
         /// <returns>The address book contact with the given ID.</returns>
         [HttpGet("{id}")]
-        public IActionResult GetContactById(int userId, int id)
+        public IActionResult GetContactById(int id)
         {
             try
             {
+                int userId = GetUserIdFromToken();
                 _logger.LogInformation($"Fetching Contact for UserID: {userId}, ContactID: {id}");
                 var contact=_addressBookService.GetContactById(userId, id);
                 if (contact == null)
@@ -81,10 +94,11 @@ namespace AddressBook_App.Controllers
         /// </summary>
         /// <returns>The newly added contact.</returns>
         [HttpPost]
-        public IActionResult AddContact([FromBody] int userId,string contactName, string contactNumber)
+        public IActionResult AddContact(string contactName, string contactNumber)
         {
             try
-            { 
+            {
+                int userId = GetUserIdFromToken();
                 _addressBookService.AddContact(userId, contactName, contactNumber);
                 _logger.LogInformation("Saving the Contact...");
 
@@ -111,10 +125,11 @@ namespace AddressBook_App.Controllers
         /// </summary>
         /// <returns>The updated contact.</returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateContactById(int userId, int id, string name, string number)
+        public IActionResult UpdateContactById(int id, string name, string number)
         {
             try
             {
+                int userId = GetUserIdFromToken();
                 _logger.LogInformation($"Attempting to update contact with ID: {id}");
 
                 bool isUpdated = _addressBookService.UpdateContact(userId, id, name, number);
@@ -152,10 +167,11 @@ namespace AddressBook_App.Controllers
         /// <returns>A success response after deletion.</returns>
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult DeleteContactById(int userId, int id)
+        public IActionResult DeleteContactById( int id)
         {
             try
             {
+                int userId = GetUserIdFromToken();
                 _logger.LogInformation($"Attempting to delete contact with ID: {id}");
 
                 bool isDeleted = _addressBookService.DeleteContact(userId, id);
