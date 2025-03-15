@@ -13,6 +13,8 @@ using System.Text;
 using CacheLayer.Service;
 using CacheLayer.Interface;
 using StackExchange.Redis;
+using Middleware.GlobalExceptionHandler;
+using Middleware.RabbitMQ;
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Info("Application Starting...");
@@ -36,13 +38,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GlobalExceptionFilter>(); // Registering the global exception filter
+});
 builder.Services.AddScoped<IAddressBookService, AddressBookService>();
 builder.Services.AddScoped<IAddressBookRepository, AddressBookRepository>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserRL, UserRL>();
 builder.Services.AddScoped<JwtTokenHelper>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddSingleton<RabbitMQProducer>();
+builder.Services.AddSingleton<RabbitMQConsumer>();
+
 
 // Add NLog to the service collection
 builder.Logging.ClearProviders();
@@ -62,6 +70,9 @@ string redisConnectionString = $"{redisConfig["Host"]}:{redisConfig["Port"]}";
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
 builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
 var app = builder.Build();
+
+var rabbitConsumer = app.Services.GetRequiredService<RabbitMQConsumer>();
+Task.Run(() => rabbitConsumer.StartListening());
 
 // Configure the HTTP request pipeline.
 

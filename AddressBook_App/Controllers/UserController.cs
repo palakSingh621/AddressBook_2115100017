@@ -1,6 +1,6 @@
 ﻿using BusinessLayer.Interface;
-using BusinessLayer.Service;
 using Microsoft.AspNetCore.Mvc;
+using Middleware.RabbitMQ;
 using ModelLayer.Model;
 
 namespace AddressBook_App.Controllers
@@ -11,12 +11,12 @@ namespace AddressBook_App.Controllers
     {
         private readonly IUserBL _userService;
         private readonly ILogger<UserController> _logger;
-        private readonly IEmailService _emailService;
-        public UserController(ILogger<UserController> logger, IUserBL userService, IEmailService emailService)
+        private readonly RabbitMQProducer _rabbitMQProducer;
+        public UserController(ILogger<UserController> logger, IUserBL userService, RabbitMQProducer rabbitMQProducer)
         {
             _logger = logger;
             _userService = userService;
-            _emailService = emailService;
+            _rabbitMQProducer = rabbitMQProducer;
         }
         /// <summary>
         /// Register user
@@ -89,7 +89,7 @@ namespace AddressBook_App.Controllers
                 if (user != null)
                 {
                     string token = _userService.GenerateResetToken(user.Id, user.Email);
-                    _emailService.SendResetEmail(user.Email, token);
+                    _rabbitMQProducer.PublishMessage(user.Email, token);
                     response.Success = true;
                     response.Message = "Reset password link sent to email";
                     return Ok(response);

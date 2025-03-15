@@ -1,5 +1,4 @@
-﻿using ModelLayer.Model;
-using RepositoryLayer.Entity;
+﻿using RepositoryLayer.Entity;
 
 namespace RepositoryLayer.Interface
 {
