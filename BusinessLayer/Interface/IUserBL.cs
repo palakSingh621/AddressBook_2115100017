@@ -7,7 +7,8 @@ namespace BusinessLayer.Interface
     {
         ResponseModel<string> RegisterUser(RegisterRequest model);
         ResponseModel<string> LoginUser(LoginRequest model);
-        ResponseModel<string> ForgotPassword(ForgetPasswordRequest model);
-        ResponseModel<string> ResetPassword(ResetPasswordRequest model);
+        string GenerateResetToken(int userId, string email);
+        UserEntity GetUserByEmail(string email);
+        UserEntity ResetPassword(string token, ResetPasswordRequest model);
     }
 }

@@ -3,6 +3,7 @@ using RepositoryLayer.Interface;
 using BusinessLayer.Interface;
 using RepositoryLayer.Hashing;
 using RepositoryLayer.Helper;
+using RepositoryLayer.Entity;
 
 namespace BusinessLayer.Service
 {
@@ -56,19 +57,28 @@ namespace BusinessLayer.Service
                 Data = token
             };
         }
-
-        public ResponseModel<string> ForgotPassword(ForgetPasswordRequest model)
+        public string GenerateResetToken(int userId, string email)
         {
-            // Logic to send a password reset link via email
-            return new ResponseModel<string> { Success = true, Message = "Password reset link sent" };
+            return _jwtHelper.GenerateResetToken(userId, email);
         }
-
-        public ResponseModel<string> ResetPassword(ResetPasswordRequest model)
+        public UserEntity GetUserByEmail(string email)
         {
-            string hashedPassword =model.NewPassword;
-            _userRepository.UpdateUserPassword(model.Email, hashedPassword);
-
-            return new ResponseModel<string> { Success = true, Message = "Password reset successful" };
+            return _userRepository.GetUserByEmail(email);
+        }
+        public UserEntity ResetPassword(string token, ResetPasswordRequest model)
+        {
+            int userId = _jwtHelper.ResetPassword(token, model);
+            var user = _userRepository.GetUserById(userId);
+            if (user != null)
+            {
+                string hashedPassword = HashingHelper.HashPassword(model.NewPassword);
+                user.PasswordHash = hashedPassword;
+                if (_userRepository.UpdateUserPassword(user.Email, user.PasswordHash))
+                {
+                    return user;
+                }
+            }
+            return null;
         }
     }
 }

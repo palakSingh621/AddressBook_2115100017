@@ -1,19 +1,22 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Service;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 
 namespace AddressBook_App.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/auth")]
     public class UserController : ControllerBase
     {
         private readonly IUserBL _userService;
         private readonly ILogger<UserController> _logger;
-        public UserController(ILogger<UserController> logger, IUserBL userService)
+        private readonly IEmailService _emailService;
+        public UserController(ILogger<UserController> logger, IUserBL userService, IEmailService emailService)
         {
             _logger = logger;
             _userService = userService;
+            _emailService = emailService;
         }
         /// <summary>
         /// Register user
@@ -72,10 +75,34 @@ namespace AddressBook_App.Controllers
         /// <returns>Reset link sent to registered user email</returns>
         [HttpPost]
         [Route("forgot-password")]
-        public IActionResult ForgotPassword([FromBody] ForgetPasswordRequest model)
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgetPasswordRequest model)
         {
-            var response = _userService.ForgotPassword(model);
-            return Ok(response);
+            _logger.LogInformation("ForgotPassword request received with email: {Email}", model.Email);
+            var response = new ResponseModel<string>();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(model.Email))
+                {
+                    return BadRequest(new { success = false, message = "Email is required" });
+                }
+                var user = _userService.GetUserByEmail(model.Email);
+                if (user != null)
+                {
+                    string token = _userService.GenerateResetToken(user.Id, user.Email);
+                    _emailService.SendResetEmail(user.Email, token);
+                    response.Success = true;
+                    response.Message = "Reset password link sent to email";
+                    return Ok(response);
+                }
+                response.Success = false;
+                response.Message = "User not found";
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Process Failed");
+                return BadRequest(new { Success = false, Message = "Process Failed", Error = ex.Message });
+            }
         }
         /// <summary>
         /// Reset Password
@@ -83,10 +110,28 @@ namespace AddressBook_App.Controllers
         /// <returns>Password Updated successfully</returns>
         [HttpPost]
         [Route("reset-password")]
-        public IActionResult ResetPassword([FromBody] ResetPasswordRequest model)
+        public IActionResult ResetPassword([FromQuery] string token, [FromBody] ResetPasswordRequest model)
         {
-            var response = _userService.ResetPassword(model);
-            return Ok(response);
+            _logger.LogInformation("Resetting Password...");
+            var response = new ResponseModel<string>();
+            try
+            {
+                var user = _userService.ResetPassword(token, model);
+                if (user != null)
+                {
+                    response.Success = true;
+                    response.Message = "Password reset successful";
+                    return Ok(response);
+                }
+                response.Success = false;
+                response.Message = "Invalid or expired token";
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Process Failed");
+                return BadRequest(new { Success = false, Message = "Process Failed", Error = ex.Message });
+            }
         }
     }
 }
