@@ -14,7 +14,10 @@ namespace AddressBook_App.Controllers
         {
             _userService = userService;
         }
-
+        /// <summary>
+        /// Register user
+        /// </summary>
+        /// <returns>User registered successfully</returns>
         [HttpPost]
         [Route("register")]
         public IActionResult Register([FromBody] RegisterRequest model)
@@ -25,7 +28,10 @@ namespace AddressBook_App.Controllers
 
             return Ok(response);
         }
-
+        /// <summary>
+        /// Login User 
+        /// </summary>
+        /// <returns>User Login successfully</returns>
         [HttpPost]
         [Route("login")]
         public IActionResult Login([FromBody] LoginRequest model)
@@ -36,7 +42,10 @@ namespace AddressBook_App.Controllers
 
             return Ok(response);
         }
-
+        /// <summary>
+        /// Forget Password 
+        /// </summary>
+        /// <returns>Reset link sent to registered user email</returns>
         [HttpPost]
         [Route("forgot-password")]
         public IActionResult ForgotPassword([FromBody] ForgetPasswordRequest model)
@@ -44,7 +53,10 @@ namespace AddressBook_App.Controllers
             var response = _userService.ForgotPassword(model);
             return Ok(response);
         }
-
+        /// <summary>
+        /// Reset Password
+        /// </summary>
+        /// <returns>Password Updated successfully</returns>
         [HttpPost]
         [Route("reset-password")]
         public IActionResult ResetPassword([FromBody] ResetPasswordRequest model)

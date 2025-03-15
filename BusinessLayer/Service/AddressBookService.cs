@@ -1,12 +1,13 @@
-﻿using RepositoryLayer.Entity;
-using RepositoryLayer.Service;
+﻿using BusinessLayer.Interface;
+using RepositoryLayer.Entity;
+using RepositoryLayer.Interface;
 
 namespace BusinessLayer.Service
 {
-    public class AddressBookService
+    public class AddressBookService: IAddressBookService
     {
-        private readonly AddressBookRepository _addressBookRepository;
-        public AddressBookService(AddressBookRepository addressBookRepository)
+        private readonly IAddressBookRepository _addressBookRepository;
+        public AddressBookService(IAddressBookRepository addressBookRepository)
         {
             _addressBookRepository = addressBookRepository;
         }

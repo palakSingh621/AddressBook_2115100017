@@ -1,9 +1,10 @@
 ﻿using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
+using RepositoryLayer.Interface;
 
 namespace RepositoryLayer.Service
 {
-    public class AddressBookRepository
+    public class AddressBookRepository: IAddressBookRepository
     {
         private readonly AddressBookContext _context;
         public AddressBookRepository(AddressBookContext context)

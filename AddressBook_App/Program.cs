@@ -17,8 +17,8 @@ builder.Services.AddDbContext<AddressBookContext>(options =>
 
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<AddressBookService>();
-builder.Services.AddScoped<AddressBookRepository>();
+builder.Services.AddScoped<IAddressBookService, AddressBookService>();
+builder.Services.AddScoped<IAddressBookRepository, AddressBookRepository>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IUserRL, UserRL>();
 
@@ -26,7 +26,11 @@ builder.Services.AddScoped<IUserRL, UserRL>();
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
 builder.Host.UseNLog();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

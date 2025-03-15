@@ -1,8 +1,7 @@
-using BusinessLayer.Service;
+using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.Entity;
-using RepositoryLayer.Service;
 
 namespace AddressBook_App.Controllers
 {
@@ -11,13 +10,17 @@ namespace AddressBook_App.Controllers
     public class AddressBook_AppController : ControllerBase
     {
         private readonly ILogger<AddressBook_AppController> _logger;
-        private readonly AddressBookService _addressBookService;
+        private readonly IAddressBookService _addressBookService;
 
-        public AddressBook_AppController(ILogger<AddressBook_AppController> logger, AddressBookService addressBookService)
+        public AddressBook_AppController(ILogger<AddressBook_AppController> logger, IAddressBookService addressBookService)
         {
             _logger = logger;
             _addressBookService = addressBookService;
         }
+        /// <summary>
+        /// Gets all address book entries.
+        /// </summary>
+        /// <returns>A list of all entries in the address book.</returns>
         [HttpGet]
         public IActionResult GetAllContacts(int userId)
         {
@@ -52,6 +55,10 @@ namespace AddressBook_App.Controllers
                 });
             }
         }
+        /// <summary>
+        /// Gets a specific address book contact by ID.
+        /// </summary>
+        /// <returns>The address book contact with the given ID.</returns>
         [HttpGet("{id}")]
         public IActionResult GetContactById(int userId, int id)
         {
@@ -69,6 +76,10 @@ namespace AddressBook_App.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+        /// <summary>
+        /// Adds a new address book contact.
+        /// </summary>
+        /// <returns>The newly added contact.</returns>
         [HttpPost]
         public IActionResult AddContact([FromBody] int userId,string contactName, string contactNumber)
         {
@@ -95,6 +106,10 @@ namespace AddressBook_App.Controllers
                 return StatusCode(500, new ResponseModel<string> { Success = false, Message = "Internal Server Error" });
             }
         }
+        /// <summary>
+        /// Updates an existing address book contact.
+        /// </summary>
+        /// <returns>The updated contact.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateContactById(int userId, int id, string name, string number)
         {
@@ -131,6 +146,10 @@ namespace AddressBook_App.Controllers
                 });
             }
         }
+        /// <summary>
+        /// Deletes an address book contact.
+        /// </summary>
+        /// <returns>A success response after deletion.</returns>
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteContactById(int userId, int id)
