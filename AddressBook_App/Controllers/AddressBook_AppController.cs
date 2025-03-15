@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using BusinessLayer.Interface;
+using CacheLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.Entity;
@@ -12,11 +13,13 @@ namespace AddressBook_App.Controllers
     {
         private readonly ILogger<AddressBook_AppController> _logger;
         private readonly IAddressBookService _addressBookService;
+        private readonly IRedisCacheService _redisCacheService;
 
-        public AddressBook_AppController(ILogger<AddressBook_AppController> logger, IAddressBookService addressBookService)
+        public AddressBook_AppController(ILogger<AddressBook_AppController> logger, IAddressBookService addressBookService, IRedisCacheService redisCacheService)
         {
             _logger = logger;
             _addressBookService = addressBookService;
+            _redisCacheService = redisCacheService;
         }
         private int GetUserIdFromToken()
         {
@@ -33,12 +36,28 @@ namespace AddressBook_App.Controllers
             /// </summary>
             /// <returns>A list of all entries in the address book.</returns>
             [HttpGet]
-        public IActionResult GetAllContacts()
+        public async Task<IActionResult> GetAllContacts()
         {
             try
             {
                 int userId = GetUserIdFromToken();
-                _logger.LogInformation("Fetching All Contacts...");
+                _logger.LogInformation("Checking cache for contacts...");
+
+                // Check Redis Cache
+                var cacheKey = $"contacts_user_{userId}";
+                var cachedcontacts = await _redisCacheService.GetCachedData<List<AddressBookEntity>>(cacheKey);
+
+                if (cachedcontacts != null)
+                {
+                    _logger.LogInformation("Returning greetings from cache.");
+                    return Ok(new ResponseModel<List<AddressBookEntity>>
+                    {
+                        Success = true,
+                        Message = $"Cache hit for user {userId} contacts",
+                        Data = cachedcontacts
+                    });
+                }
+                _logger.LogInformation("Fetching all contacts from Database...");
                 var contacts = _addressBookService.GetAllContact(userId);
                 if (contacts == null || contacts.Count == 0)
                 {
@@ -49,6 +68,7 @@ namespace AddressBook_App.Controllers
                         Message = "No contacts found."
                     });
                 }
+                await _redisCacheService.SetCachedData("all_contacts", contacts, TimeSpan.FromMinutes(20));
                 var response = new ResponseModel<List<AddressBookEntity>>
                 {
                     Success = true,
@@ -72,15 +92,29 @@ namespace AddressBook_App.Controllers
         /// </summary>
         /// <returns>The address book contact with the given ID.</returns>
         [HttpGet("{id}")]
-        public IActionResult GetContactById(int id)
+        public async Task<IActionResult> GetContactById(int id)
         {
             try
             {
                 int userId = GetUserIdFromToken();
                 _logger.LogInformation($"Fetching Contact for UserID: {userId}, ContactID: {id}");
+                var cacheKey = $"contact_{id}";
+                var cachedContact = await _redisCacheService.GetCachedData<AddressBookEntity>(cacheKey);
+                if (cachedContact != null)
+                {
+                    if (cachedContact.UserId != userId)
+                    {
+                        _logger.LogWarning($"Unauthorized access attempt by UserId {userId} for Contact ID {id}");
+                        return Unauthorized(new ResponseModel<string> { Success = false, Message = "Unauthorized access" });
+                    }
+                    _logger.LogInformation($"Cache hit for contact ID: {id}");
+                    return Ok(new ResponseModel<AddressBookEntity> { Success = true, Message = "Contact found (from cache)", Data = cachedContact });
+                }
+                _logger.LogInformation($"Fetching greeting from DB for UserID: {userId}, GreetingID: {id}");
                 var contact=_addressBookService.GetContactById(userId, id);
                 if (contact == null)
                     return NotFound(new ResponseModel<AddressBookEntity> { Success = false, Message = "Contact not found" });
+                await _redisCacheService.SetCachedData(cacheKey, contact, TimeSpan.FromMinutes(20));
                 return Ok(new ResponseModel<AddressBookEntity> { Success = true, Message = "Contact found", Data = contact });
             }
             catch (Exception ex)
@@ -125,7 +159,7 @@ namespace AddressBook_App.Controllers
         /// </summary>
         /// <returns>The updated contact.</returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateContactById(int id, string name, string number)
+        public async Task<IActionResult> UpdateContactById(int id, string name, string number)
         {
             try
             {
@@ -143,6 +177,8 @@ namespace AddressBook_App.Controllers
                         Message = $"Contact with ID {id} not found."
                     });
                 }
+                // Removing Cache since data changed
+                await _redisCacheService.RemoveCachedData("all_contacts");
                 var response = new ResponseModel<string>
                 {
                     Success = true,
@@ -167,7 +203,7 @@ namespace AddressBook_App.Controllers
         /// <returns>A success response after deletion.</returns>
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult DeleteContactById( int id)
+        public async Task<IActionResult> DeleteContactById( int id)
         {
             try
             {
@@ -185,6 +221,8 @@ namespace AddressBook_App.Controllers
                         Message = "Contact not found."
                     });
                 }
+                // Removing Cache
+                await _redisCacheService.RemoveCachedData("all_contacts");
                 var response = new ResponseModel<string>
                 {
                     Success = true,

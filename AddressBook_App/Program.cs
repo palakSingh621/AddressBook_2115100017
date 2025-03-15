@@ -10,6 +10,9 @@ using RepositoryLayer.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CacheLayer.Service;
+using CacheLayer.Interface;
+using StackExchange.Redis;
 var builder = WebApplication.CreateBuilder(args);
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Info("Application Starting...");
@@ -50,6 +53,14 @@ builder.Services.AddSwaggerGen(c =>
     var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+
+// Add Redis configuration
+var redisConfig = builder.Configuration.GetSection("Redis");
+string redisConnectionString = $"{redisConfig["Host"]}:{redisConfig["Port"]}";
+
+// Register Redis
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
+builder.Services.AddScoped<IRedisCacheService, RedisCacheService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
