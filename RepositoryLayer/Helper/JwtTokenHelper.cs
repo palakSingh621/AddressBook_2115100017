@@ -35,7 +35,8 @@ namespace RepositoryLayer.Helper
             {
                 new Claim("userId",user.Id.ToString()),
                 new Claim("userName", user.UserName),
-                new Claim("email", user.Email)
+                new Claim("email", user.Email),
+                new Claim ("role",user.Role)
             };
 
             var token = new JwtSecurityToken(
@@ -55,7 +56,7 @@ namespace RepositoryLayer.Helper
             var claims = new[]
             {
                 new Claim("userId", userId.ToString()),
-                new Claim("email", email),
+                new Claim("email", email)
             };
 
             var token = new JwtSecurityToken(

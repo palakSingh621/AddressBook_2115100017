@@ -19,7 +19,7 @@ namespace RepositoryLayer.Service
         {
             return _context.AddressBookContacts.FirstOrDefault(g=> g.UserId== userId && g.Id == id);
         }
-        public AddressBookEntity AddContact(int userId, string name, string number)
+        public AddressBookEntity AddContact(int userId, string name, string number, string email, string address)
         {
             var user = _context.Users.FirstOrDefault(g => g.Id== userId);
             if (user == null)
@@ -30,13 +30,15 @@ namespace RepositoryLayer.Service
             {
                 ContactName = name,
                 ContactNumber = number,
-                UserId = userId,
+                Email = email,
+                Address = address,
+                UserId = userId
             };
             _context.AddressBookContacts.Add(contact);
             _context.SaveChanges();
             return contact;
         }
-        public bool UpdateContact(int userId, int id, string newName, string newNumber)
+        public bool UpdateContact(int userId, int id, string newName, string newNumber, string email, string address)
         {
             var contact=_context.AddressBookContacts.FirstOrDefault(g => g.Id == id && g.UserId == userId);
             if(contact == null)
@@ -45,6 +47,8 @@ namespace RepositoryLayer.Service
             }
             contact.ContactName = newName;
             contact.ContactNumber = newNumber;
+            contact.Email = email;
+            contact.Address = address;
             _context.SaveChanges();
             return true;
         }
@@ -55,6 +59,20 @@ namespace RepositoryLayer.Service
             {
                 return false;
             }
+            _context.AddressBookContacts.Remove(contact);
+            _context.SaveChanges();
+            return true;
+        }
+        public List<AddressBookEntity> GetAllContactsForAdmin()
+        {
+            return _context.AddressBookContacts.ToList();
+        }
+        public bool DeleteContactByAdmin(int contactId)
+        {
+            var contact = _context.AddressBookContacts.FirstOrDefault(g => g.Id == contactId);
+            if (contact == null)
+                return false;
+
             _context.AddressBookContacts.Remove(contact);
             _context.SaveChanges();
             return true;

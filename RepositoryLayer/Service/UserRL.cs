@@ -18,9 +18,9 @@ namespace RepositoryLayer.Service
             return _context.Users.Any(u => u.Email == email);
         }
 
-        public UserEntity CreateUser(string username, string email, string passwordHash)
+        public UserEntity CreateUser(string username, string email, string passwordHash, string role)
         {
-            var user = new UserEntity { UserName = username, Email = email, PasswordHash = passwordHash };
+            var user = new UserEntity { UserName = username, Email = email, PasswordHash = passwordHash , Role= role};
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;

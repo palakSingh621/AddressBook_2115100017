@@ -4,6 +4,7 @@ using BusinessLayer.Interface;
 using RepositoryLayer.Hashing;
 using RepositoryLayer.Helper;
 using RepositoryLayer.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Service
 {
@@ -28,7 +29,8 @@ namespace BusinessLayer.Service
                 };
 
             string hashedPassword = HashingHelper.HashPassword(model.Password);
-            var user=_userRepository.CreateUser(model.UserName, model.Email, hashedPassword);
+            var role = string.IsNullOrEmpty(model.Role) ? "User" : model.Role;
+            var user = _userRepository.CreateUser(model.UserName, model.Email, hashedPassword, role);
 
             var response= new ResponseModel<String>
             { 
@@ -79,6 +81,10 @@ namespace BusinessLayer.Service
                 }
             }
             return null;
+        }
+        public UserEntity GetUserById(int userId)
+        {
+            return _userRepository.GetUserById(userId);
         }
     }
 }

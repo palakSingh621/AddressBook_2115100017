@@ -1,4 +1,6 @@
-﻿using BusinessLayer.Interface;
+﻿using System.Security.Claims;
+using BusinessLayer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Middleware.RabbitMQ;
 using ModelLayer.Model;
@@ -131,6 +133,43 @@ namespace AddressBook_App.Controllers
             {
                 _logger.LogError(ex, "Process Failed");
                 return BadRequest(new { Success = false, Message = "Process Failed", Error = ex.Message });
+            }
+        }
+        /// <summary>
+        /// View User Profile
+        /// </summary>
+        /// <returns>Return the Login User Details</returns>
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult GetUserProfile()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching User Profile...");
+                var userId = User.FindFirstValue("userId");
+                var response = new ResponseModel<string>();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    response.Success = false;
+                    response.Message = "Invalid user token.";
+                    return Unauthorized(response);
+                }
+
+                var user = _userService.GetUserById(int.Parse(userId)); 
+                if (user == null)
+                {
+                    response.Success = false;
+                    response.Message = "User not found.";
+                    return NotFound(response);
+                }
+                response.Success = true;
+                response.Message = "User found";
+                response.Data = $"id: {user.Id}, UserName: {user.UserName}, Email: {user.Email}, Role: {user.Role}";
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
             }
         }
     }

@@ -19,17 +19,25 @@ namespace BusinessLayer.Service
         {
             return _addressBookRepository.GetContactById(userId, id);   
         }
-        public AddressBookEntity AddContact(int userId, string name, string number)
+        public AddressBookEntity AddContact(int userId, string name, string number, string email, string address)
         {
-            return _addressBookRepository.AddContact(userId, name, number);
+            return _addressBookRepository.AddContact(userId, name, number, email, address);
         }
-        public bool UpdateContact(int userId, int id, string newName, string newNumber)
+        public bool UpdateContact(int userId, int id, string newName, string newNumber,string email, string address)
         {
-            return _addressBookRepository.UpdateContact(userId, id, newName, newNumber);
+            return _addressBookRepository.UpdateContact(userId, id, newName, newNumber, email, address);
         }
         public bool DeleteContact(int userId, int id)
         {
             return _addressBookRepository.DeleteContact(userId, id);
+        }
+        public List<AddressBookEntity> GetAllContactsForAdmin()
+        {
+            return _addressBookRepository.GetAllContactsForAdmin();
+        }
+        public bool DeleteContactByAdmin(int contactId)
+        {
+            return _addressBookRepository.DeleteContactByAdmin(contactId);
         }
     }
 }

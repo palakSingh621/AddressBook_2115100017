@@ -1,12 +1,14 @@
 using System.Security.Claims;
 using BusinessLayer.Interface;
 using CacheLayer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.Entity;
 
 namespace AddressBook_App.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/addressbook")]
     public class AddressBook_AppController : ControllerBase
@@ -31,11 +33,12 @@ namespace AddressBook_App.Controllers
             }
             return int.Parse(userId);
         }
-            /// <summary>
-            /// Gets all address book entries.
-            /// </summary>
-            /// <returns>A list of all entries in the address book.</returns>
-            [HttpGet]
+        /// <summary>
+        /// Gets all address book entries.
+        /// </summary>
+        /// <returns>A list of all entries in the address book.</returns>
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> GetAllContacts()
         {
             try
@@ -91,6 +94,7 @@ namespace AddressBook_App.Controllers
         /// Gets a specific address book contact by ID.
         /// </summary>
         /// <returns>The address book contact with the given ID.</returns>
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetContactById(int id)
         {
@@ -127,13 +131,14 @@ namespace AddressBook_App.Controllers
         /// Adds a new address book contact.
         /// </summary>
         /// <returns>The newly added contact.</returns>
+        [Authorize]
         [HttpPost]
-        public IActionResult AddContact(string contactName, string contactNumber)
+        public IActionResult AddContact(string contactName, string contactNumber,string email, string address)
         {
             try
             {
                 int userId = GetUserIdFromToken();
-                _addressBookService.AddContact(userId, contactName, contactNumber);
+                _addressBookService.AddContact(userId, contactName, contactNumber,email,address);
                 _logger.LogInformation("Saving the Contact...");
 
                 return Ok(new ResponseModel<string>
@@ -158,15 +163,16 @@ namespace AddressBook_App.Controllers
         /// Updates an existing address book contact.
         /// </summary>
         /// <returns>The updated contact.</returns>
+        [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateContactById(int id, string name, string number)
+        public async Task<IActionResult> UpdateContactById(int id, string name, string number,string email, string address)
         {
             try
             {
                 int userId = GetUserIdFromToken();
                 _logger.LogInformation($"Attempting to update contact with ID: {id}");
 
-                bool isUpdated = _addressBookService.UpdateContact(userId, id, name, number);
+                bool isUpdated = _addressBookService.UpdateContact(userId, id, name, number, email,address);
 
                 if (!isUpdated)
                 {
@@ -183,7 +189,7 @@ namespace AddressBook_App.Controllers
                 {
                     Success = true,
                     Message = $"Contact with ID {id} updated successfully.",
-                    Data = $"New Contact Name: {name} and New Contact Number: {number}"
+                    Data = $"New Contact Name: {name}    New Contact Number: {number}   New Email: {email}   New Address: {address}"
                 };
                 return Ok(response);
             }
@@ -201,6 +207,7 @@ namespace AddressBook_App.Controllers
         /// Deletes an address book contact.
         /// </summary>
         /// <returns>A success response after deletion.</returns>
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteContactById( int id)
@@ -240,6 +247,59 @@ namespace AddressBook_App.Controllers
                     Success = false,
                     Message = "Internal Server Error"
                 });
+            }
+        }
+        /// <summary>
+        /// View List of All Contacts For Admin
+        /// </summary>
+        /// <returns>List of All User Contacts</returns>
+        [Authorize(Roles = "Admin")]
+        [HttpGet("admin/contacts")]
+        public IActionResult GetAllContactsForAdmin()
+        {
+            try
+            {
+                _logger.LogInformation("fetching All Contacts for Admin...");
+                var contacts = _addressBookService.GetAllContactsForAdmin();
+                var response = new ResponseModel<List<AddressBookEntity>>();
+                if (contacts == null || !contacts.Any())
+                {
+                    response.Success = false;
+                    response.Message = "No contacts found.";
+                    return NotFound(response);
+                }
+                response.Success = true;
+                response.Message = "Contacts found.";
+                response.Data = contacts;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
+            }
+        }
+        /// <summary>
+        /// Delete any Contact For Admin
+        /// </summary>
+        /// <returns>Contact Deleted</returns>
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("admin/contacts/{id}")]
+        public async Task<IActionResult> DeleteContactByAdmin(int id)
+        {
+            try
+            {
+                _logger.LogInformation($"Deleting Contacts {id} for Admin...");
+                bool isDeleted = _addressBookService.DeleteContactByAdmin(id);
+                if (!isDeleted)
+                {
+                    return NotFound(new { message = "Contact not found." });
+                }
+                await _redisCacheService.RemoveCachedData("all_contacts");
+                return Ok(new { message = "Contact deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
             }
         }
     }

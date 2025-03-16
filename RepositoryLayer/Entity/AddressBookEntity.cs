@@ -11,8 +11,11 @@ namespace RepositoryLayer.Entity
 
         [Required]
         public string ContactName { get; set; }
-        [Required]
+        [Required, Phone, MaxLength(15)]
         public string ContactNumber { get; set; }
+        [EmailAddress, MaxLength(255)]
+        public string Email { get; set; }
+        public string Address { get; set; }
         // Foreign Key
         public int UserId { get; set; }
 
