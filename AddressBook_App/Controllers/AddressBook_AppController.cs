@@ -37,16 +37,15 @@ namespace AddressBook_App.Controllers
         /// Gets all address book entries.
         /// </summary>
         /// <returns>A list of all entries in the address book.</returns>
-        [Authorize]
+        
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllContacts()
         {
             try
             {
                 int userId = GetUserIdFromToken();
                 _logger.LogInformation("Checking cache for contacts...");
-
-                // Check Redis Cache
                 var cacheKey = $"contacts_user_{userId}";
                 var cachedcontacts = await _redisCacheService.GetCachedData<List<AddressBookEntity>>(cacheKey);
 
@@ -94,8 +93,9 @@ namespace AddressBook_App.Controllers
         /// Gets a specific address book contact by ID.
         /// </summary>
         /// <returns>The address book contact with the given ID.</returns>
-        [Authorize]
+       
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetContactById(int id)
         {
             try
@@ -131,21 +131,30 @@ namespace AddressBook_App.Controllers
         /// Adds a new address book contact.
         /// </summary>
         /// <returns>The newly added contact.</returns>
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public IActionResult AddContact(string contactName, string contactNumber,string email, string address)
         {
+            _logger.LogInformation("Trying to Save the Contact");
             try
             {
                 int userId = GetUserIdFromToken();
-                _addressBookService.AddContact(userId, contactName, contactNumber,email,address);
+                var user=_addressBookService.AddContact(userId, contactName, contactNumber,email,address);
+                if(user==null)
+                {
+                    return BadRequest(new ResponseModel<string>
+                    {
+                        Success = false,
+                        Message = "Contact not Saved!",
+                        Data = $"Name: {user.ContactName}, Number: {user.ContactNumber}, Email: {user.Email} and Address: {user.Address}"
+                    });
+                }
                 _logger.LogInformation("Saving the Contact...");
-
                 return Ok(new ResponseModel<string>
                 {
                     Success = true,
                     Message = "Contact saved successfully",
-                    Data = "Contact Saved!"
+                    Data = $"Name: {user.ContactName}, Number: {user.ContactNumber}, Email: {user.Email} and Address: {user.Address}"
                 });
             }
             catch (UnauthorizedAccessException ex)
@@ -153,18 +162,19 @@ namespace AddressBook_App.Controllers
                 _logger.LogError($"Unauthorized access: {ex.Message}");
                 return Unauthorized(new ResponseModel<string> { Success = false, Message = "Unauthorized access." });
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error in AddContact: {ex.Message}");
-                return StatusCode(500, new ResponseModel<string> { Success = false, Message = "Internal Server Error" });
-            }
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError($"Error in AddContact: {ex.Message}");
+            //    return StatusCode(500, new ResponseModel<string> { Success = false, Message = "Internal Server Error" });
+            //}
         }
         /// <summary>
         /// Updates an existing address book contact.
         /// </summary>
         /// <returns>The updated contact.</returns>
-        [Authorize]
+        
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateContactById(int id, string name, string number,string email, string address)
         {
             try
@@ -207,9 +217,10 @@ namespace AddressBook_App.Controllers
         /// Deletes an address book contact.
         /// </summary>
         /// <returns>A success response after deletion.</returns>
-        [Authorize]
+       
         [HttpDelete]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteContactById( int id)
         {
             try
@@ -253,8 +264,9 @@ namespace AddressBook_App.Controllers
         /// View List of All Contacts For Admin
         /// </summary>
         /// <returns>List of All User Contacts</returns>
-        [Authorize(Roles = "Admin")]
+       
         [HttpGet("admin/contacts")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllContactsForAdmin()
         {
             try
@@ -282,8 +294,9 @@ namespace AddressBook_App.Controllers
         /// Delete any Contact For Admin
         /// </summary>
         /// <returns>Contact Deleted</returns>
-        [Authorize(Roles = "Admin")]
+        
         [HttpDelete("admin/contacts/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteContactByAdmin(int id)
         {
             try

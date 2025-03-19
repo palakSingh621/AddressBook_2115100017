@@ -2,7 +2,7 @@
 using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Middleware.RabbitMQ;
+using Middleware.RabbitMQ.Interface;
 using ModelLayer.Model;
 
 namespace AddressBook_App.Controllers
@@ -13,8 +13,8 @@ namespace AddressBook_App.Controllers
     {
         private readonly IUserBL _userService;
         private readonly ILogger<UserController> _logger;
-        private readonly RabbitMQProducer _rabbitMQProducer;
-        public UserController(ILogger<UserController> logger, IUserBL userService, RabbitMQProducer rabbitMQProducer)
+        private readonly IRabbitMQProducer _rabbitMQProducer;
+        public UserController(ILogger<UserController> logger, IUserBL userService, IRabbitMQProducer rabbitMQProducer)
         {
             _logger = logger;
             _userService = userService;

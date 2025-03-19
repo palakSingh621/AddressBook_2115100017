@@ -21,11 +21,11 @@ namespace RepositoryLayer.Service
         }
         public AddressBookEntity AddContact(int userId, string name, string number, string email, string address)
         {
-            var user = _context.Users.FirstOrDefault(g => g.Id== userId);
-            if (user == null)
-            {
-                throw new InvalidOperationException("User not found.");
-            }
+            var user = _context.Users.FirstOrDefault(users=>users.Id.Equals(userId));
+            //if (user == null)
+            //{
+            //    throw new InvalidOperationException("User not found.");
+            //}
             var contact= new AddressBookEntity
             {
                 ContactName = name,

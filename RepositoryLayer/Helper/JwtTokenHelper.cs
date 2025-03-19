@@ -63,7 +63,7 @@ namespace RepositoryLayer.Helper
                 issuer: "AddressBook",
                 audience: "AddressBookUser",
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1), // Token expires in 1 hour
+                expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -84,7 +84,7 @@ namespace RepositoryLayer.Helper
             },
             out SecurityToken validatedToken);
             // Extract userId from claims
-            var userIdClaim = claimsPrincipal.FindFirst("userId")?.Value;
+            var userIdClaim = claimsPrincipal.FindFirstValue("userId");
 
             if (userIdClaim == null)
             {
