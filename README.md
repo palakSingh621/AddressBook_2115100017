@@ -53,6 +53,5 @@
  - Consume messages asynchronously
 
 **UC 9: Testing APIs Using NUnit**
- - Test User Authentication
+ - Test User Authentication and Authorization
  - Test CRUD operations for Address Book
- - Validate Email Sending, JWT, and Redis
